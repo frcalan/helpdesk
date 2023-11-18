@@ -1,5 +1,6 @@
 package io.github.frcalan.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.frcalan.helpdesk.domain.enums.Perfil;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 public class Tecnico extends Pessoa {
     private static final long serialVersionUID = 1L;
+    @JsonIgnore
     @OneToMany(mappedBy = "tecnico")
     private List<Chamado> chamados = new ArrayList<>();
 
