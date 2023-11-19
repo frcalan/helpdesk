@@ -39,3 +39,5 @@ public class TecnicoResource {
         return ResponseEntity.created(uri).build();
     }
 }
+
+

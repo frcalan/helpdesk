@@ -1,5 +1,6 @@
 package io.github.frcalan.helpdesk.Resources.exceptions;
 
+import io.github.frcalan.helpdesk.services.exceptions.DataIntegrityViolationException;
 import io.github.frcalan.helpdesk.services.exceptions.ObjectNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -18,5 +19,13 @@ public class ResourceExceptionHandler {
                 "Object Not Found", ex.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<StandardError> dataIntegrityViolationException(ObjectNotFoundException ex, HttpServletRequest request){
+        StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+                "Violação de dados", ex.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }
