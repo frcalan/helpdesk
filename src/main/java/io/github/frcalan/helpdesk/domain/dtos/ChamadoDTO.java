@@ -3,6 +3,7 @@ package io.github.frcalan.helpdesk.domain.dtos;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.frcalan.helpdesk.domain.Chamado;
 import io.github.frcalan.helpdesk.domain.enums.Status;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -15,12 +16,17 @@ public class ChamadoDTO  implements Serializable {
     private LocalDate dataAbertura = LocalDate.now();
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFechamento;
+    @NotNull(message = "O campo PRIORIDADE é requirido")
     private Integer prioridade;
+    @NotNull(message = "O campo STATUS é requirido")
     private Status status;
+    @NotNull(message = "O campo TITULO é requirido")
     private String titulo;
+    @NotNull(message = "O campo OBSERVAÇÕES é requirido")
     private String observacoes;
     private Integer tecnico;
     private String nomeTecnico;
+    @NotNull(message = "O campo CLIENTE é requirido")
     private Integer cliente;
     private String nomeCliente;
 
@@ -73,7 +79,7 @@ public class ChamadoDTO  implements Serializable {
         this.prioridade = prioridade;
     }
 
-    public Status getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
