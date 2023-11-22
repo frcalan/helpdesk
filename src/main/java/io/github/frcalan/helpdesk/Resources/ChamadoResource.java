@@ -1,7 +1,9 @@
 package io.github.frcalan.helpdesk.Resources;
 
 import io.github.frcalan.helpdesk.domain.Chamado;
+import io.github.frcalan.helpdesk.domain.Cliente;
 import io.github.frcalan.helpdesk.domain.dtos.ChamadoDTO;
+import io.github.frcalan.helpdesk.domain.dtos.ClienteDTO;
 import io.github.frcalan.helpdesk.services.ChamadoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ public class ChamadoResource {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<ChamadoDTO> findById(@PathVariable Integer id) {
-        Chamado obj = service.FindById(id);
+        Chamado obj = service.findById(id);
         return  ResponseEntity.ok().body(new ChamadoDTO(obj));
     }
 
@@ -39,4 +41,11 @@ public class ChamadoResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ChamadoDTO> update(@PathVariable Integer id, @Valid @RequestBody ChamadoDTO objDTO) {
+        Chamado newObj = service.update(id, objDTO);
+        return ResponseEntity.ok().body(new ChamadoDTO(newObj));
+    }
+
 }
